@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <div class="log">
+        <div class="inp">
+            <ion-icon name="log-in-outline"></ion-icon>
+            <div class="l1">
+                <div class="line"></div>
+                <p>Sign IN</p>
+                <div class="line"></div>
+            </div>
+            <div class="in">
+                <input type="text" placeholder="USERNAME" required id="user">
+                <input type="text" placeholder="PASSWORD" required id="pass">
+                <button onclick="log()">Sign IN</button>
+            </div>
+        </div>
+    </div>
+    <div class="info">
+        <div class="int">
+            <h1>INFO</h1>
+            <p>Your User ID = <span>id</span></p>
+            <button onclick="i9()">OK</button>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    <script>
+        var username = document.getElementById('user');
+        var password = document.getElementById('pass');
+        var is = document.querySelector('.info .int span');
+        var info = document.querySelector('.info');
+        const socket = io('http://localhost:3001');
+
+            socket.on('connection');
+            socket.on("message", (data) => {
+                alert(data)
+            });
+            socket.on('id', (data) => {
+                is.innerHTML = data;
+            });
+        function log(){
+            
+            if(username.value != '' & password.value != ''){
+                socket.emit('signin', [username.value, password.value]);
+
+                info.style.display = 'flex';
+            }
+        }
+        
+    </script>
+    <script>
+        function i9(){
+           info.style.display = 'none';
+           window.location = '../log';
+        }
+    </script>
+</body>
+</html>
